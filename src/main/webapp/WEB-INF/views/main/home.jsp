@@ -1,9 +1,14 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<html lang="en">
 <head>
-	<title>Home</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+	<script src=""></script>
 </head>
 <body>
 <div style="background-color:#a5e2ff">
@@ -15,7 +20,7 @@
 	<h1>
 	그리고 여기는! 상품 이미지가 롤링이 되고! 링크가 걸림! 상품페이지로!
 	</h1>
-</div>
+</div> 
 <div style="background-color:#DCC8EE">
 	<h1>
 	여기는 갬성홍보이미지가..롤링이 됨...링크없음
