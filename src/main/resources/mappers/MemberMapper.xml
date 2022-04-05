@@ -3,14 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.portfolio.odia.dao.MemberDAO">
-	<insert id="insertMember">
-		insert into 
-			member(me_id, me_gr_code, me_pw, me_name, me_email, me_zip,
-				 me_address1, me_address2, me_phone, me_recommending, me_point, me_auth)
-			values(#{user.me_id},#{user.me_gr_code},#{user.me_pw},#{user.me_name},#{user.me_email}, #{user.me_zip}
-				#{user.me_address1},#{user.me_address2},#{user.me_phone},#{user.me_recommending},#{user.me_point},#{user.me_auth})
-	</insert>
 	<select id="selectMember" resultType="kr.portfolio.odia.vo.MemberVO">
 		select * from member where me_id = #{me_id}
 	</select>
+	 <insert id="insertMember">
+		insert into 
+			member(me_id, me_pw, me_name, me_email, me_zip, 
+					me_address1, me_address2, me_phone, me_recommending)
+			values(#{user.me_id},#{user.me_pw},#{user.me_name},#{user.me_email},#{user.me_zip},#{user.me_address1},#{user.me_address2},#{user.me_phone},#{user.me_recommending})
+	</insert>
+	<update id="updateAutoLogin">
+  		update member set
+	  		me_session_id = #{user.me_session_id},
+	  		me_session_limit = #{user.me_session_limit}
+	 		where me_id = #{user.me_id}
+ 	 </update>
+ 	 <select id="selectMemberBySessionId" resultType="kr.portfolio.odia.vo.MemberVO">
+ 	  	select * from member
+ 	  		where me_session_id = #{me_session_id} and me_session_limit >= now()
+ 	 </select>
+ 	 <select id="selectMemeberList" resultType="kr.portfolio.odia.vo.MemberVO">
+  		select * from member where me_authority != '슈퍼 관리자'
+ 	 </select>
 </mapper>

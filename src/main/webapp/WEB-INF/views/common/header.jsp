@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -59,6 +62,14 @@
 			text-align: left; font-family: 'Nanum Gothic', 'Noto Sans','sans-serif';
 			line-height: 1.6; letter-spacing: 0px; -webkit-font-smoothing: antialiased;
 		}
+		.modal-content3{
+			background-color: #fafafa; border-radius: 10px; box-sizing: border-box; 
+			position: fixed; z-index: 5000; display: none;
+			width: 370px;
+	
+			text-align: left; font-family: 'Nanum Gothic', 'Noto Sans','sans-serif';
+			line-height: 1.6; letter-spacing: 0px; -webkit-font-smoothing: antialiased;
+		}
 		
 		.modal-policy-ttl {
 			padding-left: 10px;
@@ -73,12 +84,7 @@
 			text-shadow: 1px 1px 2px gray;
 			color: white;
 		}		
-		#modal .content {
-			margin-top: 20px;
-			padding: 0px 10px;
-			text-shadow: 1px 1px 2px gray; font-family: 'NanumSquare';
-			color: white;
-		}
+		
 		.inputbox{
 			margin: 10px 0 5px 0; cursor: pointer;
 		}
@@ -108,7 +114,7 @@
 			border: 1px solid #e0e0e0; background: #fff; border-top: 1px solid #e0e0e0; box-sizing: border-box; position: relative;
 		}
 		.input-form input{
-			border: none; width: 288px; height: 15.6px;  padding: 12px 16px; line-height: 1.2; font-size: inherit; margin: 0; display: inline-block; cursor: text; 
+			border: none; width: 288px; height: 39.6px;  padding: 0 16px; line-height: 1.2; font-size: inherit; margin: 0; display: inline-block; cursor: text; 
 		}
 		.btn-idchk{
 			letter-spacing: 0; font-size: 14px;  font-family: inherit;
@@ -142,7 +148,18 @@
 			background: #0b2f7f; border: 0px solid #0b2f7f; color: #fff; font-size: 14px; font-weight: bold; 
 			padding: 10px 25px; width: 100%; height: 45px;
 		}
-
+		.btn-block{
+		}
+		.btn-block .btn-login{
+			background: #0b2f7f; border: 0px solid #0b2f7f; color: #fff; font-size: 14px; font-weight: bold; 
+			padding: 10px 25px; width: 100%; height: 45px; vertical-align:middle;
+		}
+		.float-l{
+			float:left;  border: none; background:transparent;
+		}
+		.float-r{
+			float:right; border: none; background:transparent;
+		}
 </style>
 </head>
 <body class="modal-open">
@@ -162,7 +179,7 @@
 				      <a class="nav-link" href="#">첫 구매라면?</a>
 				    </li>
 				    <li class="nav-item">
-				      <a class="nav-link" href="#">Shop</a>
+				      <a class="nav-link" href="<%=request.getContextPath()%>/murchanlist">Shop</a>
 				    </li>
 				    <li class="nav-item">
 				      <a class="nav-link" href="#">About</a>
@@ -179,9 +196,20 @@
 		</div>
 		<div data-type="col-group" data-col-group="right" class="inline col-group inline-col-group-right" style="widgh:395px; background-color: #60f4c7;">오른쪽박스.
 			<div class="btn-header-box">
-				<button class="btn btn-header btn-login">LOGIN</button>
-				<button class="btn btn-header btn-join" id="btn-join">JOIN</button>
-				<a class="btn btn-header btn-text" href="#">CART</a>
+			<!-- 비로그인상태 -->
+				<c:if test="${ user == null }">
+					<button class="btn btn-header btn-login">LOGIN</button>
+					<button class="btn btn-header btn-join" id="btn-join">JOIN</button>
+				</c:if>
+			<!-- 로그인상태 -->
+				<c:if test="${ user != null }">
+				     <a class="btn btn-header btn-my" href="<%=request.getContextPath()%>/mypage">MY</a>
+				     <a class="btn btn-header btn-logout" href="<%=request.getContextPath()%>/logout">LOGOUT</a>
+			    </c:if>
+			   	<a class="btn btn-header btn-text" href="#">CART</a>
+			   	 <c:if test="${user != null && user.me_auth =='슈퍼 관리자' }">
+			    	<a class="btn btn-header btn-admin" href="<%=request.getContextPath()%>/admin/index">ADMIN</a>
+			    </c:if>
 			</div>
 		</div>
 	</div>	
@@ -395,12 +423,12 @@
 				<h1 style="text-align: center;">회원가입</h1>
 			</div>
 			<div class="alert alert-info">추천인 코드 입력하면 1,000원 즉시 적립!</div>
-			<from class="join-screen" style="position: relative;">
+			<form class="join-screen" style="position: relative;"action="<%=request.getContextPath()%>/signup" method="post">
 				<div class="input_block form-group">
 					<div class="input-form _item me_id">
 						<input type="text" title="아이디" name="me_id" placeholder="아이디"  >
 					</div>
-					<button class="btn btn-idchk" name="idCheck">아이디 중복 확인</button>
+					<button type="button" class="btn btn-idchk" name="idCheck">아이디 중복 확인</button>
 					<div class="input-form _item me_pw">
 						<input type="password" title="비밀번호" name="me_pw"placeholder="비밀번호"  >
 					</div>
@@ -424,7 +452,7 @@
 						<i aria-hidden="true" class="icon-required"></i>	
 					</label>
 					<div class="input-form _item me_phone">
-						<input type="text" title="연락처 name="me_phone" placeholder="연락처">
+						<input type="text" title="연락처" name="me_phone" placeholder="연락처">
 					</div>
 				</div>
 				<div class="input_block form-group">
@@ -432,11 +460,11 @@
 						<i aria-hidden="true" class="icon-required"></i>	
 					</label>
 					<div class="form-inline mb-2">
-				<input type="text" id="postcode" placeholder="우편번호" class="form-control col-6">
+				<input type="text" id="postcode" name="me_zip" placeholder="우편번호" class="input-form2 form-control col-6">
 				<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="form-control col-6">
 			</div>
-			<input type="text" id="address" placeholder="주소" class="form-control mb-2">
-			<input type="text" id="detailAddress" placeholder="상세주소" class="form-control mb-2">
+			<input type="text" id="address" name="me_address1" placeholder="주소" class="form-control mb-2">
+			<input type="text" id="detailAddress" name="me_address2" placeholder="상세주소" class="form-control mb-2">
 			<input type="hidden" name="me_address">
 				</div>
 				<div class="input_block form-group">
@@ -446,20 +474,44 @@
 					</div>
 				</div>
 				<div class="input_block form-group no-margin">
-					<button class="btn btn-brand _join_btn2">
-						회원가입
-					</button>
+					<button class="btn btn-brand _join_btn2">회원가입</button>
 				</div>
 			</form>
 		</div>
-		
+		<div class="modal modal-content3">
+			<div class="modal-login-ttl">
+				<div class="closebox">X</div>
+				<h1 style="text-align: center;">로그인</h1>
+			</div>
+			<form class="login-screen" style="position: relative;" action="<%=request.getContextPath()%>/login" method="post">
+				<div class="input_block form-group">
+					<div class="input-form me_id">
+						<input type="text" title="아이디" name="me_id" placeholder="아이디"  >
+					</div>
+					<div class="input-form me_pw">
+						<input type="password" title="비밀번호" name="me_pw"placeholder="비밀번호"  >
+					</div>
+				</div>
+				<div class="inputbox input-login-check ">
+					<label>
+						<input type="checkbox" name="me_auto_login" value="ok">로그인상태유지
+				</div>
+				<div class="btn-block">
+					<button class="btn btn-login">로그인</button>
+				</div>
+				<div class="other_btns">
+					<button type="button" class="float-l btn-join">회원가입</button>
+					<button type="button" class="float-r find-info">아이디·비밀번호 찾기</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	
 </div>
 <script>
-	
 	$('.btn-join').click(function(){
 		$('.modal').show();
+		$('.modal-content3').hide();
 		$('.modal-content2').hide();
 	});
 	$('.closebox').click(function(){
@@ -499,7 +551,52 @@
 		$('.modal-content').hide();
 		$('.modal-content2').show();
 	});
-
+	$('.btn-login').click(function(){
+		$('.modal').show();
+		$('.modal-content').hide();
+		$('.modal-content2').hide();
+	})
+	
+	
+	var idCheck = false;
+	$('[name=idCheck]').click(function(){
+		var id = $('.modal-content2 [name = me_id]').val();//회원가입 창 안의 me_id만 활용. 로그인용 모달과 충돌 없도록
+		if(id == ''){
+			alert();
+			return;
+		}
+			
+		$.ajax({ //중괄호 안에 ajax 옵션을 선택해서 넣으라는 의미
+			async: false, //다 끝날 때까지 기다리삼
+			type: 'get', //id는 url에 노출되어도 상관없음
+			//data: {id: ??}, get 방식ㅇ은 딱히 필요 없음. 대신 url에 아이디를 붙여준다
+			url:'<%=request.getContextPath()%>/idcheck?me_id='+id,
+			success:function(data){
+				if(data=='true'){
+					alert('사용 가능한 아이디입니다.');
+					idCheck = true;
+				}else{
+					alert('이미 사용중인 아이디입니다.');
+					idCheck = false;
+				}
+			}
+		});
+	})
+	$('[name=me_id]').change(function(){
+			idCheck = false;
+		});
+	
+	//회원가입폼 서브밋
+	$('.join-screen').submit(function(){
+		if(!idCheck){
+			alert('아이디 중복검사를 하세요.');
+			return false;
+		}
+		
+	});
+	
+	
+	
 	function execDaumPostcode() {
 		new daum.Postcode({
 			oncomplete: function(data) {

@@ -15,6 +15,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -32,8 +33,37 @@
 	        <beans:list>
 	            <beans:value>/WEB-INF/spring/tiles-def.xml</beans:value>
 	        </beans:list>
-	    </beans:property>
+	    </beans:property>   
 	</beans:bean>
-	
+	<beans:bean id="loginInterceptor" 
+	class="kr.portfolio.odia.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="memberInterceptor" 
+		class="kr.portfolio.odia.interceptor.MemberInterceptor"></beans:bean>
+	<beans:bean id="guestInterceptor" 
+		class="kr.portfolio.odia.interceptor.GuestInterceptor"></beans:bean>
+	<beans:bean id="autoLoginInterceptor" 
+		class="kr.portfolio.odia.interceptor.AutoLoginInterceptor"></beans:bean>
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/login"/>
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+		    <mapping path="/board/register"/>
+		    <mapping path="/board/modify"/>
+		    <mapping path="/board/delete"/>
+		    <mapping path="/mypage"/>
+		    <beans:ref bean="memberInterceptor"/>
+		  </interceptor>
+		  <interceptor>
+		    <mapping path="/login"/>
+		    <mapping path="/signup"/>
+		    <beans:ref bean="guestInterceptor"/>
+		  </interceptor>
+		  <interceptor>
+		    <mapping path="/**/"/>
+		    <beans:ref bean="autoLoginInterceptor"/>
+		  </interceptor>
+	</interceptors>
 	
 </beans:beans>
