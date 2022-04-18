@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.portfolio.odia.dao.MurchanDAO">
+    <select id="getMurchanList" resultType="kr.portfolio.odia.vo.MurchanVO">
+		select
+			*
+		from
+			murchandise
+		order by mu_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+    <select id="selectCountMurchan">
+		select
+			count(*)
+		from
+			murchandise
+		
+	</select> 
+</mapper>

@@ -166,11 +166,11 @@
 <!--이거머라고쓴거냐!-->
 <div class = "section_bg_wrap fixed_transform">
 	<div class = "section bg_color">
-		<div data-type="col-group" data-col-group="left" class="inline col-group inline-col-group-left" style="background-color: #74992e;">왼쪽박스</div>
-		<div data-type="col-group" data-col-group="center" class="inline col-group inline-col-group-center">
+		<div data-type="col-group" data-col-group="left" class="inline col-group inline-col-group-left" style="background-color: #74992e;"></div>
+		<div data-type="col-group" data-col-group="center" class="inline col-group inline-col-group-center"> <p>
 			<div class="inline-row"></div>
 			<div data-type="row" class="inline-row">
-				<a href="/" style="block"> 중앙박스</a>
+				<a href="/" style="block"></a>
 			</div>
 			<div data-type="row" class="inline-row">
 				<nav class="navbar navbar-expand-sm bg-light justify-content-center">
@@ -182,10 +182,10 @@
 				      <a class="nav-link" href="<%=request.getContextPath()%>/murchanlist">Shop</a>
 				    </li>
 				    <li class="nav-item">
-				      <a class="nav-link" href="#">About</a>
+				      <a class="nav-link" href="<%=request.getContextPath()%>/about">About</a>
 				    </li>
 				    <li class="nav-item">
-				      <a class="nav-link" href="#">Review</a>
+				      <a class="nav-link" href="<%=request.getContextPath()%>/list">Review</a>
 				    </li>
 				    <li class="nav-item">
 				      <a class="nav-link" href="#">고객센터</a>
@@ -194,7 +194,7 @@
 				</nav>
 			</div>
 		</div>
-		<div data-type="col-group" data-col-group="right" class="inline col-group inline-col-group-right" style="widgh:395px; background-color: #60f4c7;">오른쪽박스.
+		<div data-type="col-group" data-col-group="right" class="inline col-group inline-col-group-right" style="widgh:395px; background-color: #60f4c7;">
 			<div class="btn-header-box">
 			<!-- 비로그인상태 -->
 				<c:if test="${ user == null }">
